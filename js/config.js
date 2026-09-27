@@ -27,23 +27,19 @@ window.SUNFLOWER_CONFIG = {
   "carouselPhotos": [
     {
       "src": "assets/images/carousel/1.jpg",
-      "alt": "My beautiful Sunflower",
-      "caption": "That radiant smile that lights up my entire world ✨"
+      "alt": "My beautiful Sunflower"
     },
     {
       "src": "assets/images/carousel/2.jpg",
-      "alt": "Grace and beauty",
-      "caption": "Effortlessly gorgeous, every single time 💖"
+      "alt": "Grace and beauty"
     },
     {
       "src": "assets/images/carousel/3.jpg",
-      "alt": "Unmatched elegance",
-      "caption": "Beauty, brains, and a golden heart all in one 🌸"
+      "alt": "Unmatched elegance"
     },
     {
       "src": "assets/images/carousel/4.jpg",
-      "alt": "My favorite view",
-      "caption": "The queen herself... always stealing my breath away 👑"
+      "alt": "My favorite view"
     }
   ],
   "slideshowPhotos": [

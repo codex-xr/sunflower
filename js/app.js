@@ -344,8 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const slide = document.createElement('div');
       slide.className = `carousel-slide ${idx === 0 ? 'active' : ''}`;
       slide.innerHTML = `
-        <img src="${photo.src}" alt="${photo.alt}" onerror="this.onerror=null; this.src='assets/images/placeholder-her.svg';" />
-        <div class="carousel-caption">${photo.caption}</div>
+        <div class="carousel-slide-bg" style="background-image: url('${photo.src}')"></div>
+        <img class="carousel-img-main" src="${photo.src}" alt="${photo.alt || 'Sunflower'}" onerror="this.onerror=null; this.src='assets/images/placeholder-her.svg';" />
       `;
       track.appendChild(slide);
 

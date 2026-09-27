@@ -61,12 +61,12 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/4.jpg",
       "era": "Sweet Beginnings 🌸",
-      "caption": "💕"
+      "caption": "💖"
     },
     {
       "src": "assets/images/slideshow/5.jpg",
       "era": "Sweet Beginnings 🌸",
-      "caption": "🌻✨"
+      "caption": "🌷✨"
     },
     {
       "src": "assets/images/slideshow/05 - Sty cheesed up (Laughing emoji).jpg",
@@ -86,17 +86,17 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/7.jpg",
       "era": "Sweet Beginnings 🌸",
-      "caption": "🤍"
+      "caption": "💫❤️"
     },
     {
       "src": "assets/images/slideshow/8.jpg",
       "era": "Sweet Beginnings 🌸",
-      "caption": "🌻❤️"
+      "caption": "🌻✨"
     },
     {
       "src": "assets/images/slideshow/9.jpg",
       "era": "Sweet Beginnings 🌸",
-      "caption": "🥰✨"
+      "caption": "🤍"
     },
     {
       "src": "assets/images/slideshow/10 - Omo (Laughing emoji).jpg",
@@ -170,14 +170,14 @@ window.SUNFLOWER_CONFIG = {
       "caption": "Wetin you dey think tho 😂"
     },
     {
-      "src": "assets/images/slideshow/22.jpg",
+      "src": "assets/images/slideshow/22 - Slaying (Laughing Emoji).jpg",
       "era": "Pure Radiance 💖",
-      "caption": "🌷✨"
+      "caption": "Slaying 😂"
     },
     {
-      "src": "assets/images/slideshow/23.jpg",
+      "src": "assets/images/slideshow/23 - You were always the finest (Love emoji).jpg",
       "era": "Pure Radiance 💖",
-      "caption": "💫❤️"
+      "caption": "You were always the finest ❤️"
     },
     {
       "src": "assets/images/slideshow/24 - A picture with this pretty girl won't be bad.jpg",
@@ -192,7 +192,7 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/25.jpg",
       "era": "Pure Radiance 💖",
-      "caption": "🌻✨"
+      "caption": "🌷✨"
     },
     {
       "src": "assets/images/slideshow/26 - (Laughing emoji).jpg",
@@ -207,17 +207,17 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/28.jpg",
       "era": "Pure Radiance 💖",
-      "caption": "🤍"
+      "caption": "💫❤️"
     },
     {
-      "src": "assets/images/slideshow/29 - (Eyeball emoji).jpg",
+      "src": "assets/images/slideshow/29 - (Eyeball emoji and Hot emoji).jpg",
       "era": "Pure Radiance 💖",
-      "caption": "👀"
+      "caption": "👀🔥"
     },
     {
       "src": "assets/images/slideshow/30.jpg",
       "era": "Pure Radiance 💖",
-      "caption": "🌻❤️"
+      "caption": "🌻✨"
     },
     {
       "src": "assets/images/slideshow/32 - (Laughing Emoji).jpg",
@@ -232,12 +232,12 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/34.jpg",
       "era": "Pure Radiance 💖",
-      "caption": "🥰✨"
+      "caption": "🤍"
     },
     {
       "src": "assets/images/slideshow/35.jpg",
       "era": "Pure Radiance 💖",
-      "caption": "💖"
+      "caption": "🌻❤️"
     },
     {
       "src": "assets/images/slideshow/36 - No matter how hard you try to hide your beauty....it'll still show very clearly (Love emoji).jpg",
@@ -257,22 +257,22 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/39.jpg",
       "era": "She Conquered 🎓👑",
-      "caption": "🌸"
+      "caption": "🥰✨"
     },
     {
       "src": "assets/images/slideshow/40.jpg",
       "era": "She Conquered 🎓👑",
-      "caption": "✨🌻"
+      "caption": "🌸"
     },
     {
       "src": "assets/images/slideshow/41.jpg",
       "era": "She Conquered 🎓👑",
-      "caption": "👑❤️"
+      "caption": "💕"
     },
     {
       "src": "assets/images/slideshow/42.jpg",
       "era": "She Conquered 🎓👑",
-      "caption": "🥺💛"
+      "caption": "✨🌻"
     },
     {
       "src": "assets/images/slideshow/43 - You came.jpg",
@@ -302,12 +302,12 @@ window.SUNFLOWER_CONFIG = {
     {
       "src": "assets/images/slideshow/48.jpg",
       "era": "My Sunflower Today 🌻",
-      "caption": "🌷✨"
+      "caption": "👑❤️"
     },
     {
       "src": "assets/images/slideshow/49.jpg",
       "era": "My Sunflower Today 🌻",
-      "caption": "💫❤️"
+      "caption": "🥺💛"
     },
     {
       "src": "assets/images/slideshow/50 - Happy Birthday my love, my peace, my Sunflower forever 🌻❤️.jpg",

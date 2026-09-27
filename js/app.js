@@ -3,9 +3,21 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const config = window.SUNFLOWER_CONFIG;
-  const particles = new window.ParticleEngine();
-  const music = new window.MusicController();
+  const config = window.SUNFLOWER_CONFIG || {};
+  let particles = null;
+  let music = null;
+
+  try {
+    particles = new window.ParticleEngine();
+  } catch (e) {
+    console.warn("Particles engine initialization skipped:", e);
+  }
+
+  try {
+    music = new window.MusicController();
+  } catch (e) {
+    console.warn("Music controller initialization skipped:", e);
+  }
 
   // State
   let currentScreen = 1;
@@ -15,42 +27,46 @@ document.addEventListener('DOMContentLoaded', () => {
   let slideshowIndex = 0;
   let screen6CountdownTimer = null;
 
+  // Global access for failsafe inline handlers
+  window.goToScreen = goToScreen;
+
   // DOM Elements
-  const screens = document.querySelectorAll('.screen');
-  const floatingMusicWidget = document.getElementById('music-widget');
-
-  // Render Dynamic Config Content
-  populateConfigContent();
-
-  // Initialize Carousel & Slideshow
-  initCarousel();
-  initSlideshow();
-
-  // Initialize Runaway Negative Buttons
-  initRunawayButtons();
-
-  // Screen 1: "Tap to open"
   const tapToOpenBox = document.getElementById('btn-screen-1-open');
   const tapToOpenBtn = document.getElementById('btn-screen-1-open-btn');
-  
+  const readyYesBtn = document.getElementById('btn-ready-yes');
+  const readyNoBtn = document.getElementById('btn-ready-no');
+  const loveAlotBtn = document.getElementById('btn-love-alot');
+  const loveAlittleBtn = document.getElementById('btn-love-alittle');
+  const chatNextBtn = document.getElementById('btn-chat-next');
+  const whoBtn = document.getElementById('btn-who');
+  const screen6NextBtn = document.getElementById('btn-screen-6-next');
+  const revealBtn = document.getElementById('btn-reveal');
+  const slideshowPrevBtn = document.getElementById('slideshow-prev');
+  const slideshowNextBtn = document.getElementById('slideshow-next');
+  const slideshowFinishBtn = document.getElementById('btn-slideshow-finish');
+  const virtualHugBtn = document.getElementById('btn-virtual-hug');
+  const replayBtn = document.getElementById('btn-replay');
+  const floatingMusicWidget = document.getElementById('music-widget');
+
+  // Screen 1: "Tap to open"
   if (tapToOpenBox) {
-    tapToOpenBox.addEventListener('click', () => goToScreen(2));
+    tapToOpenBox.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToScreen(2);
+    });
   }
   if (tapToOpenBtn) {
-    tapToOpenBtn.addEventListener('click', () => goToScreen(2));
+    tapToOpenBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToScreen(2);
+    });
   }
 
   // Screen 2: "Are you ready for a little surprise?"
-  const readyYesBtn = document.getElementById('btn-ready-yes');
-  const readyNoBtn = document.getElementById('btn-ready-no');
-
   if (readyYesBtn) {
     readyYesBtn.addEventListener('click', () => {
-      // Start Giveon music on positive transition
-      music.play();
-      if (floatingMusicWidget) {
-        floatingMusicWidget.classList.add('visible');
-      }
+      if (music) music.play();
+      if (floatingMusicWidget) floatingMusicWidget.classList.add('visible');
       goToScreen(3);
     });
   }
@@ -64,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         text: "You can't say no to this! Give it another shot with YES ❤️",
         btnText: "Okay, I'm ready! 🥰",
         onConfirm: () => {
-          music.play();
+          if (music) music.play();
           goToScreen(3);
         }
       });
@@ -72,12 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Screen 3: "Do you know how much I love you?"
-  const loveAlotBtn = document.getElementById('btn-love-alot');
-  const loveAlittleBtn = document.getElementById('btn-love-alittle');
-
   if (loveAlotBtn) {
     loveAlotBtn.addEventListener('click', () => {
-      particles.celebrateBurst(window.innerWidth / 2, window.innerHeight / 2, 45);
+      if (particles) particles.celebrateBurst(window.innerWidth / 2, window.innerHeight / 2, 45);
       goToScreen(4);
     });
   }
@@ -91,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         text: "A little?! You know it's deeper than the ocean! Pick the right one 😉",
         btnText: "Fine, A LOT! ❤️",
         onConfirm: () => {
-          particles.celebrateBurst(window.innerWidth / 2, window.innerHeight / 2, 45);
+          if (particles) particles.celebrateBurst(window.innerWidth / 2, window.innerHeight / 2, 45);
           goToScreen(4);
         }
       });
@@ -99,15 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Screen 4: Chat Memory
-  const chatNextBtn = document.getElementById('btn-chat-next');
   if (chatNextBtn) {
-    chatNextBtn.addEventListener('click', () => {
-      goToScreen(5);
-    });
+    chatNextBtn.addEventListener('click', () => goToScreen(5));
   }
 
   // Screen 5: "WHO? 👀"
-  const whoBtn = document.getElementById('btn-who');
   if (whoBtn) {
     whoBtn.addEventListener('click', () => {
       goToScreen(6);
@@ -116,58 +125,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Screen 6: "YOU! 🌻❤️"
-  const screen6NextBtn = document.getElementById('btn-screen-6-next');
   if (screen6NextBtn) {
-    screen6NextBtn.addEventListener('click', () => {
-      goToScreen(7);
-    });
+    screen6NextBtn.addEventListener('click', () => goToScreen(7));
   }
 
   // Screen 7: "Ehen... about that promise" -> "Reveal 🎁"
-  const revealBtn = document.getElementById('btn-reveal');
   if (revealBtn) {
     revealBtn.addEventListener('click', () => {
-      particles.celebrateBurst(window.innerWidth / 2, window.innerHeight / 2, 60);
+      if (particles) particles.celebrateBurst(window.innerWidth / 2, window.innerHeight / 2, 60);
       goToScreen(8);
     });
   }
 
-  // Screen 8: Childhood-to-Now Slideshow controls
-  const slideshowPrevBtn = document.getElementById('slideshow-prev');
-  const slideshowNextBtn = document.getElementById('slideshow-next');
-  const slideshowFinishBtn = document.getElementById('btn-slideshow-finish');
-
+  // Screen 8: Slideshow controls
   if (slideshowPrevBtn) {
-    slideshowPrevBtn.addEventListener('click', () => {
-      changeSlideshowSlide(slideshowIndex - 1);
-    });
+    slideshowPrevBtn.addEventListener('click', () => changeSlideshowSlide(slideshowIndex - 1));
   }
   if (slideshowNextBtn) {
-    slideshowNextBtn.addEventListener('click', () => {
-      changeSlideshowSlide(slideshowIndex + 1);
-    });
+    slideshowNextBtn.addEventListener('click', () => changeSlideshowSlide(slideshowIndex + 1));
   }
   if (slideshowFinishBtn) {
-    slideshowFinishBtn.addEventListener('click', () => {
-      goToScreen(9);
-    });
+    slideshowFinishBtn.addEventListener('click', () => goToScreen(9));
   }
 
-  // Screen 9: Teddy Hug & Virtual Hug Button
-  const virtualHugBtn = document.getElementById('btn-virtual-hug');
-  const replayBtn = document.getElementById('btn-replay');
-
+  // Screen 9: Teddy Hug & Replay
   if (virtualHugBtn) {
-    virtualHugBtn.addEventListener('click', () => {
-      triggerTeddyHug();
-    });
+    virtualHugBtn.addEventListener('click', () => triggerTeddyHug());
+  }
+  if (replayBtn) {
+    replayBtn.addEventListener('click', () => goToScreen(1));
   }
 
-  if (replayBtn) {
-    replayBtn.addEventListener('click', () => {
-      goToScreen(1);
-    });
-  }
+  // Initialize Dynamic Features Safely
+  try { populateConfigContent(); } catch (err) { console.error("Error populating config:", err); }
+  try { initCarousel(); } catch (err) { console.error("Error initializing carousel:", err); }
+  try { initSlideshow(); } catch (err) { console.error("Error initializing slideshow:", err); }
+  try { initRunawayButtons(); } catch (err) { console.error("Error initializing runaway buttons:", err); }
 
   // Core Screen Switcher
   function goToScreen(targetIndex) {
@@ -188,40 +181,32 @@ document.addEventListener('DOMContentLoaded', () => {
     toEl.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Handle Screen-Specific Entry Logic
+    // Screen specific triggers
     if (targetIndex === 6) {
       startScreen6Timer();
     } else {
-      if (screen6CountdownTimer) {
-        clearInterval(screen6CountdownTimer);
-      }
+      if (screen6CountdownTimer) clearInterval(screen6CountdownTimer);
     }
 
-    if (targetIndex === 9) {
+    if (targetIndex === 9 && particles) {
       particles.celebrateBurst(window.innerWidth / 2, window.innerHeight * 0.4, 50);
     }
   }
 
   /**
    * Runaway Button Physics
-   * Moves button playfully away when hover or touch approaches!
    */
   function initRunawayButtons() {
-    const runawayButtons = [readyNoBtn, loveAlittleBtn];
+    const rNo = document.getElementById('btn-ready-no');
+    const rLittle = document.getElementById('btn-love-alittle');
+    const runawayButtons = [rNo, rLittle];
 
     runawayButtons.forEach(btn => {
       if (!btn) return;
-
       let dodgeCount = 0;
 
       const dodge = (e) => {
-        // Prevent default click if dodging
         if (dodgeCount < 5) {
-          const container = btn.parentElement;
-          const rect = btn.getBoundingClientRect();
-          const pRect = container.getBoundingClientRect();
-
-          // Generate random jump coordinates within reasonable bounds
           const maxOffsetX = Math.min(130, window.innerWidth * 0.3);
           const maxOffsetY = 70;
 
@@ -233,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
           dodgeCount++;
 
-          // After a few dodges, change text playfully
           if (dodgeCount === 2) {
             btn.innerHTML = btn.id.includes('ready') ? "Can't touch me! 😜" : "Still wrong! 🙈";
           } else if (dodgeCount === 4) {
@@ -253,10 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Birthday Screen 6 Celebration
+   * Screen 6 Celebration
    */
   function triggerBirthdayCelebration() {
-    // Multiple celebratory bursts
+    if (!particles) return;
     particles.celebrateBurst(window.innerWidth * 0.2, window.innerHeight * 0.3, 50);
     setTimeout(() => {
       particles.celebrateBurst(window.innerWidth * 0.8, window.innerHeight * 0.3, 50);
@@ -267,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Screen 6 Timer: Shows "Next" button after 20 seconds (with progress bar)
+   * Screen 6 Timer
    */
   function startScreen6Timer() {
     const nextBtn = document.getElementById('btn-screen-6-next');
@@ -291,13 +275,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (secondsLeft <= 0) {
         clearInterval(screen6CountdownTimer);
         nextBtn.classList.add('revealed');
-        if (timerText) timerText.parentElement.style.opacity = '0';
+        if (timerText && timerText.parentElement) timerText.parentElement.style.opacity = '0';
       }
     }, 1000);
   }
 
   /**
-   * Screen 6: Heart-Shaped Carousel Logic
+   * Heart Carousel
    */
   function initCarousel() {
     const track = document.getElementById('heart-carousel-track');
@@ -339,10 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Auto rotate every 5 seconds
     if (carouselTimer) clearInterval(carouselTimer);
     carouselTimer = setInterval(() => {
-      if (currentScreen === 6) {
+      if (currentScreen === 6 && config.carouselPhotos) {
         setCarouselSlide((carouselIndex + 1) % config.carouselPhotos.length);
       }
     }, 4500);
@@ -362,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Screen 8: Childhood-to-Now Slideshow
+   * Screen 8 Slideshow
    */
   function initSlideshow() {
     updateSlideshowUI();
@@ -455,13 +438,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Screen 9: Teddy Bear Hug & Virtual Hug Reaction
+   * Screen 9 Teddy Hug
    */
   function triggerTeddyHug() {
     const bearsContainer = document.getElementById('teddy-hug-wrapper');
     const hugStatus = document.getElementById('hug-status-message');
 
-    // Squeeze animation class
     if (bearsContainer) {
       bearsContainer.classList.add('cuddle-active');
       setTimeout(() => {
@@ -469,26 +451,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1600);
     }
 
-    // Vibration haptics on mobile
     if (navigator.vibrate) {
       navigator.vibrate([100, 50, 200]);
     }
 
-    // Celebration burst of hugs, hearts and kisses
-    particles.celebrateBurst(window.innerWidth / 2, window.innerHeight * 0.45, 60);
+    if (particles) {
+      particles.celebrateBurst(window.innerWidth / 2, window.innerHeight * 0.45, 60);
+    }
 
-    // Show sweet popup message
     if (hugStatus) {
-      hugStatus.textContent = config.finale.hugReceivedMessage;
+      hugStatus.textContent = config.finale ? config.finale.hugReceivedMessage : "Hug received! ❤️";
       hugStatus.classList.add('show');
     }
   }
 
   /**
-   * Populate texts and drafted letter from config
+   * Populate letter & titles
    */
   function populateConfigContent() {
-    // Fill letter paragraphs
     const letterBody = document.getElementById('romantic-letter-body');
     if (letterBody && config.letter) {
       letterBody.innerHTML = `
@@ -501,28 +481,26 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
-    // Chat image
     const chatImg = document.getElementById('chat-screenshot-img');
     if (chatImg) {
-      chatImg.src = config.chatImage;
+      chatImg.src = config.chatImage || 'assets/images/chat.jpg';
       chatImg.onerror = () => {
         chatImg.onerror = null;
         chatImg.src = 'assets/images/placeholder-chat.svg';
       };
     }
 
-    // Finale titles
     const finaleHeading = document.getElementById('finale-heading');
     const finaleSubheading = document.getElementById('finale-subheading');
     const virtualHugBtnText = document.getElementById('btn-virtual-hug-text');
 
-    if (finaleHeading) finaleHeading.textContent = config.finale.heading;
-    if (finaleSubheading) finaleSubheading.textContent = config.finale.subheading;
-    if (virtualHugBtnText) virtualHugBtnText.textContent = config.finale.buttonText;
+    if (finaleHeading && config.finale) finaleHeading.textContent = config.finale.heading;
+    if (finaleSubheading && config.finale) finaleSubheading.textContent = config.finale.subheading;
+    if (virtualHugBtnText && config.finale) virtualHugBtnText.textContent = config.finale.buttonText;
   }
 
   /**
-   * Playful Modal for "NO" / "A little"
+   * Playful Modal
    */
   function showPlayfulModal({ emoji, title, text, btnText, onConfirm }) {
     const modal = document.getElementById('playful-modal');

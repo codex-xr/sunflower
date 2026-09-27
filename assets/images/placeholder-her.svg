@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="warmSun" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="40%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FDE68A"/>
+    </linearGradient>
+    <radialGradient id="sunflowerCenter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="70%" stop-color="#451A03"/>
+      <stop offset="100%" stop-color="#261001"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="500" height="500" fill="url(#warmSun)"/>
+
+  <!-- Soft concentric rings -->
+  <circle cx="250" cy="220" r="140" fill="#FCD34D" opacity="0.25"/>
+  <circle cx="250" cy="220" r="110" fill="#F59E0B" opacity="0.15"/>
+
+  <!-- Sunflower Illustration -->
+  <g transform="translate(250, 220)">
+    <!-- Sunflower Petals -->
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B" transform="rotate(30)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#FBBF24" transform="rotate(60)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B" transform="rotate(90)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#FBBF24" transform="rotate(120)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B" transform="rotate(150)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#FBBF24" transform="rotate(180)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B" transform="rotate(210)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#FBBF24" transform="rotate(240)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B" transform="rotate(270)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#FBBF24" transform="rotate(300)"/>
+    <path d="M 0 -85 C 20 -40, 20 0, 0 0 C -20 0, -20 -40, 0 -85 Z" fill="#F59E0B" transform="rotate(330)"/>
+
+    <!-- Sunflower Center -->
+    <circle cx="0" cy="0" r="42" fill="url(#sunflowerCenter)"/>
+    <circle cx="0" cy="0" r="32" fill="#3E1A00" opacity="0.6" stroke="#92400E" stroke-dasharray="3,3"/>
+  </g>
+
+  <!-- Elegant Caption -->
+  <text x="250" y="360" font-family="'Playfair Display', serif" font-weight="700" font-size="22" fill="#78350F" text-anchor="middle">My Radiant Sunflower</text>
+  <text x="250" y="390" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#B45309" text-anchor="middle">Drop your photo into assets/images/carousel/</text>
+</svg>

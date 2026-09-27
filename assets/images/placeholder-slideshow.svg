@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF7"/>
+      <stop offset="100%" stop-color="#FEF3C7"/>
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="500" fill="url(#bgGrad)"/>
+
+  <!-- Polaroid Frame -->
+  <g filter="url(#shadow2)">
+    <rect x="120" y="40" width="360" height="410" rx="14" fill="#FFFFFF"/>
+    <rect x="145" y="65" width="310" height="290" rx="8" fill="#F8FAFC"/>
+    
+    <!-- Photo Graphic -->
+    <circle cx="300" cy="180" r="60" fill="#FEF08A"/>
+    <text x="300" y="195" font-size="52" text-anchor="middle">🌻</text>
+    
+    <text x="300" y="270" font-family="'Playfair Display', serif" font-weight="700" font-size="18" fill="#78350F" text-anchor="middle">Precious Memory</text>
+    
+    <!-- Handwritten feel line -->
+    <text x="300" y="400" font-family="'Caveat', cursive, sans-serif" font-size="22" fill="#475569" text-anchor="middle">"From little steps to big dreams ✨"</text>
+  </g>
+</svg>

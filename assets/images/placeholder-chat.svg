@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 650" width="100%" height="100%">
+  <defs>
+    <linearGradient id="chatBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="bubbleMe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="bubbleHer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Phone Card Background -->
+  <rect width="450" height="650" rx="28" fill="url(#chatBg)"/>
+
+  <!-- Chat Top Bar -->
+  <rect width="450" height="85" rx="28" fill="#1E293B"/>
+  <circle cx="50" cy="45" r="22" fill="#FCD34D"/>
+  <text x="50" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" text-anchor="middle" fill="#78350F">🌻</text>
+  
+  <text x="85" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="17" fill="#F8FAFC">My Sunflower 🌻</text>
+  <text x="85" y="60" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#10B981">● Online</text>
+
+  <!-- Date Chip -->
+  <rect x="175" y="105" width="100" height="24" rx="12" fill="#334155" opacity="0.8"/>
+  <text x="225" y="121" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle" fill="#94A3B8">Chat Memory</text>
+
+  <!-- Message 1: Me -->
+  <g filter="url(#shadow)">
+    <path d="M 120 150 L 400 150 A 16 16 0 0 1 416 166 L 416 220 A 16 16 0 0 1 400 236 L 136 236 A 16 16 0 0 1 120 220 Z" fill="url(#bubbleMe)"/>
+    <text x="140" y="180" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#FFFFFF" font-weight="500">I just screenshotted that</text>
+    <text x="140" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#FFFFFF" font-weight="500">funny picture of you 😂📸</text>
+    <text x="390" y="226" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#FEF3C7" text-anchor="end">10:14 PM ✓✓</text>
+  </g>
+
+  <!-- Message 2: Her -->
+  <g filter="url(#shadow)">
+    <path d="M 34 260 L 320 260 A 16 16 0 0 1 336 276 L 336 345 A 16 16 0 0 1 320 361 L 50 361 A 16 16 0 0 1 34 345 Z" fill="url(#bubbleHer)"/>
+    <text x="54" y="290" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#F1F5F9">Ehen! Don't let anybody</text>
+    <text x="54" y="312" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#F1F5F9">see it o! Keep it safe for</text>
+    <text x="54" y="334" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#F1F5F9">me please 🙈😂</text>
+    <text x="316" y="352" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#94A3B8" text-anchor="end">10:15 PM</text>
+  </g>
+
+  <!-- Message 3: Me -->
+  <g filter="url(#shadow)">
+    <path d="M 130 380 L 400 380 A 16 16 0 0 1 416 396 L 416 450 A 16 16 0 0 1 400 466 L 146 466 A 16 16 0 0 1 130 450 Z" fill="url(#bubbleMe)"/>
+    <text x="150" y="410" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#FFFFFF" font-weight="500">I promise... I'll keep it</text>
+    <text x="150" y="432" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" fill="#FFFFFF" font-weight="500">safe forever 🤞❤️</text>
+    <text x="390" y="456" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#FEF3C7" text-anchor="end">10:16 PM ✓✓</text>
+  </g>
+
+  <!-- Lock & Promise Seal Badge -->
+  <circle cx="225" cy="535" r="38" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="225" cy="535" r="28" fill="#F59E0B"/>
+  <text x="225" y="542" font-size="24" text-anchor="middle">🔐</text>
+  <text x="225" y="595" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="13" fill="#FCD34D" text-anchor="middle">PROMISE SEALED</text>
+</svg>

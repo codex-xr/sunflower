@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FFFDF7">
+  <title>A Special Surprise for Sunflower 🌻</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌻</text></svg>">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Floating Falling Sunflower Petals & Particles Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Universal SVG Masks for Cross-Browser Heart Carousel -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <clipPath id="heart-clip" clipPathUnits="objectBoundingBox">
+        <path d="M 0.5, 0.88 C 0.25, 0.65, 0, 0.48, 0, 0.26 C 0, 0.12, 0.12, 0, 0.26, 0 C 0.38, 0, 0.45, 0.08, 0.5, 0.17 C 0.55, 0.08, 0.62, 0, 0.74, 0 C 0.88, 0, 1, 0.12, 1, 0.26 C 1, 0.48, 0.75, 0.65, 0.5, 0.88 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- Floating Music Widget (Top Right) -->
+  <div id="music-widget">
+    <div class="music-vinyl" id="music-vinyl" title="Click to play/pause music"></div>
+    <div class="music-info">
+      <span class="music-title">Dancing in the Smoke</span>
+      <span class="music-artist">Giveon</span>
+    </div>
+    <button class="music-toggle-btn" id="music-toggle-btn" aria-label="Toggle Music">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main Viewport Container -->
+  <main id="app-container">
+
+    <!-- ========================================================
+         SCREEN 1: Home / Bouncing Gift Box
+         ======================================================== -->
+    <section class="screen active" data-screen="1" id="screen-1">
+      <span class="badge-tag">✨ A Birthday Surprise Just For You</span>
+      <h1 class="title-romantic">Hey Sunflower, I have a gift for you</h1>
+      <p class="subtitle-romantic">Something special wrapped with all my love...</p>
+
+      <div class="gift-box-wrapper" id="btn-screen-1-open">
+        <div class="gift-sparkles s1">✨</div>
+        <div class="gift-sparkles s2">🌻</div>
+        <div class="gift-bow">🎀</div>
+        <div class="gift-box">
+          <!-- Stylized box center -->
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-screen-1-open-btn">
+        <span>Tap to open</span>
+        <span>🎁</span>
+      </button>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 2: Are you ready?
+         ======================================================== -->
+    <section class="screen" data-screen="2" id="screen-2">
+      <div class="question-card">
+        <div class="card-icon">🎁✨</div>
+        <h2 class="title-romantic">Are you ready for a little surprise?</h2>
+        <p class="subtitle-romantic">Take a deep breath and tell me...</p>
+
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-ready-yes">
+            <span>YES</span>
+            <span>❤️</span>
+          </button>
+          <button class="btn-secondary" id="btn-ready-no">
+            <span>NO</span>
+            <span>😭</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 3: Love Meter (Giveon Music starts!)
+         ======================================================== -->
+    <section class="screen" data-screen="3" id="screen-3">
+      <div class="question-card">
+        <div class="card-icon">💖</div>
+        <span class="badge-tag">🎵 Now Playing: Giveon</span>
+        <h2 class="title-romantic">Do you know how much I love you?</h2>
+        <p class="subtitle-romantic">Be honest now... 😉</p>
+
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-love-alot">
+            <span>A lot</span>
+            <span>❤️</span>
+          </button>
+          <button class="btn-secondary" id="btn-love-alittle">
+            <span>A little</span>
+            <span>🥱</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 4: The Chat Memory & The Promise
+         ======================================================== -->
+    <section class="screen" data-screen="4" id="screen-4">
+      <span class="badge-tag">💬 Locked Memory</span>
+      <h2 class="title-romantic">Do you remember this chat of ours?</h2>
+
+      <div class="chat-container">
+        <img id="chat-screenshot-img" src="assets/images/chat.png" alt="Our Special Chat" class="chat-image">
+      </div>
+
+      <p class="promise-quote">"I want to show you how far I've gone with that promise..."</p>
+
+      <button class="btn-primary" id="btn-chat-next">
+        <span>NEXT</span>
+        <span>➔</span>
+      </button>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 5: The "Who?" Suspense
+         ======================================================== -->
+    <section class="screen" data-screen="5" id="screen-5">
+      <div class="suspense-card">
+        <div class="card-icon">🎂✨</div>
+        <h2 class="title-romantic">But first of all...</h2>
+        <p class="subtitle-romantic" style="font-size: 1.35rem; margin: 20px 0 32px 0;">
+          Isn't today someone's very special day?....
+        </p>
+
+        <button class="btn-primary suspense-eye-btn" id="btn-who">
+          <span>WHO?</span>
+          <span>👀</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 6: YOU! Birthday Reveal (Letter + Heart Carousel)
+         ======================================================== -->
+    <section class="screen" data-screen="6" id="screen-6">
+      <div class="reveal-header">
+        <span class="badge-tag">🌻 IT'S YOUR BIRTHDAY!</span>
+        <h1 class="reveal-title">YOU! ❤️</h1>
+      </div>
+
+      <div class="letter-and-carousel-grid">
+        <!-- Left: Romantic Letter -->
+        <article class="romantic-letter-card">
+          <div id="romantic-letter-body">
+            <!-- Populated dynamically from config.js -->
+          </div>
+        </article>
+
+        <!-- Right: Heart-Shaped Carousel -->
+        <div class="carousel-column">
+          <div class="heart-frame-outer">
+            <div class="heart-frame-inner">
+              <div class="heart-carousel-track" id="heart-carousel-track">
+                <!-- Slides injected from config.js -->
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-nav-row">
+            <button class="carousel-nav-btn" id="carousel-prev" aria-label="Previous Photo">❮</button>
+            <div class="carousel-dots" id="carousel-dots"></div>
+            <button class="carousel-nav-btn" id="carousel-next" aria-label="Next Photo">❯</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Countdown & Next Button -->
+      <div class="screen-6-footer">
+        <div class="countdown-bar-wrapper">
+          <div class="countdown-bar-fill" id="screen-6-progress-bar"></div>
+        </div>
+        <p class="countdown-text">Take your time reading... Unlocking next surprise in <span id="screen-6-timer-countdown">20s</span></p>
+
+        <button class="btn-primary" id="btn-screen-6-next">
+          <span>Next</span>
+          <span>➔</span>
+        </button>
+        <button class="skip-timer-link" onclick="document.getElementById('btn-screen-6-next').classList.add('revealed')">Skip wait</button>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 7: The Promise Payoff Transition
+         ======================================================== -->
+    <section class="screen" data-screen="7" id="screen-7">
+      <div class="promise-reveal-box">
+        <div class="card-icon">🔐🤭</div>
+        <h2 class="title-romantic">Ehen... about that promise of keeping your pictures 😏</h2>
+        <p class="subtitle-romantic" style="font-size: 1.3rem; margin: 18px 0 28px 0;">
+          Here you go......
+        </p>
+
+        <button class="btn-primary" id="btn-reveal">
+          <span>Reveal</span>
+          <span>🎁</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 8: Childhood-to-Now Slideshow
+         ======================================================== -->
+    <section class="screen" data-screen="8" id="screen-8">
+      <span class="badge-tag">📸 A Walk Down Memory Lane</span>
+      <h2 class="title-romantic" style="font-size: 1.8rem; margin-bottom: 16px;">The Journey of My Sunflower 🌻</h2>
+
+      <div class="slideshow-card">
+        <div class="slideshow-meta-top">
+          <span class="slideshow-era-badge" id="slideshow-era-badge">Baby Steps & Big Smiles</span>
+          <span class="slideshow-counter" id="slideshow-counter">Memory 1 of 6</span>
+        </div>
+
+        <div class="slideshow-photo-frame">
+          <img id="slideshow-image" src="assets/images/placeholder-slideshow.svg" alt="Memory Photo">
+        </div>
+
+        <p class="slideshow-caption" id="slideshow-caption">
+          "Look at that adorable little angel! Destined for greatness right from the start 🥺👶"
+        </p>
+
+        <div class="slideshow-controls">
+          <button class="btn-secondary" id="slideshow-prev">❮ Prev</button>
+          <button class="btn-primary" id="slideshow-next">Next ❯</button>
+          <button class="btn-primary" id="btn-slideshow-finish" style="display: none;">
+            <span>Next</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SCREEN 9: Grand Finale (Teddy Hug & Final Blessing)
+         ======================================================== -->
+    <section class="screen" data-screen="9" id="screen-9">
+      <div class="finale-card">
+        <span class="badge-tag">🌻 Forever & Always</span>
+        <h1 class="finale-title" id="finale-heading">I love you, Salome</h1>
+        <p class="finale-sub" id="finale-subheading">And I wish you God's blessings today and always ✨</p>
+
+        <!-- Two Cute Teddy Bears Hugging Illustration -->
+        <div class="teddy-hug-wrapper" id="teddy-hug-wrapper">
+          <div class="hug-floating-hearts">
+            <span>❤️</span>
+            <span>💖</span>
+            <span>✨</span>
+          </div>
+          
+          <svg viewBox="0 0 240 200" width="100%" height="100%">
+            <defs>
+              <radialGradient id="bear1Grad" cx="40%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#E29555"/>
+                <stop offset="100%" stop-color="#B2652B"/>
+              </radialGradient>
+              <radialGradient id="bear2Grad" cx="40%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#FDE68A"/>
+                <stop offset="100%" stop-color="#E5BE6C"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Shadow underneath -->
+            <ellipse cx="120" cy="180" rx="90" ry="14" fill="#000000" opacity="0.08"/>
+
+            <!-- Left Bear (Brown) -->
+            <g class="bear-left">
+              <!-- Left Bear Ears -->
+              <circle cx="65" cy="55" r="18" fill="url(#bear1Grad)"/>
+              <circle cx="65" cy="55" r="10" fill="#FFA4B4"/>
+              
+              <!-- Left Bear Body -->
+              <ellipse cx="90" cy="130" rx="42" ry="46" fill="url(#bear1Grad)"/>
+              
+              <!-- Left Bear Head -->
+              <circle cx="85" cy="85" r="38" fill="url(#bear1Grad)"/>
+              
+              <!-- Muzzle -->
+              <ellipse cx="95" cy="95" rx="16" ry="12" fill="#FCEBD5"/>
+              <ellipse cx="98" cy="92" rx="5" ry="3.5" fill="#4A2511"/>
+              <path d="M 98 96 Q 100 102 104 99" stroke="#4A2511" stroke-width="2" fill="none" stroke-linecap="round"/>
+              
+              <!-- Eyes (Happy closed arcs) -->
+              <path d="M 76 80 Q 82 74 88 80" stroke="#4A2511" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              
+              <!-- Blushing cheek -->
+              <ellipse cx="78" cy="92" rx="7" ry="5" fill="#FF8FA3" opacity="0.65"/>
+            </g>
+
+            <!-- Right Bear (Cream/Golden) -->
+            <g class="bear-right">
+              <!-- Right Bear Ears -->
+              <circle cx="175" cy="55" r="18" fill="url(#bear2Grad)"/>
+              <circle cx="175" cy="55" r="10" fill="#FFA4B4"/>
+              
+              <!-- Ear Flower -->
+              <text x="180" y="52" font-size="14">🌸</text>
+
+              <!-- Right Bear Body -->
+              <ellipse cx="150" cy="130" rx="42" ry="46" fill="url(#bear2Grad)"/>
+              
+              <!-- Right Bear Head -->
+              <circle cx="155" cy="85" r="38" fill="url(#bear2Grad)"/>
+              
+              <!-- Muzzle -->
+              <ellipse cx="145" cy="95" rx="16" ry="12" fill="#FEF9E7"/>
+              <ellipse cx="142" cy="92" rx="5" ry="3.5" fill="#5C3B14"/>
+              <path d="M 142 96 Q 140 102 136 99" stroke="#5C3B14" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+              <!-- Eyes (Happy closed arcs) -->
+              <path d="M 152 80 Q 158 74 164 80" stroke="#5C3B14" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              
+              <!-- Blushing cheek -->
+              <ellipse cx="162" cy="92" rx="7" ry="5" fill="#FF8FA3" opacity="0.65"/>
+            </g>
+
+            <!-- Hugging Arms Wrap Around Each Other -->
+            <!-- Left Bear's Arm wrapping around Right Bear -->
+            <path d="M 90 120 C 120 125, 140 145, 160 135" stroke="url(#bear1Grad)" stroke-width="22" stroke-linecap="round" fill="none"/>
+            <circle cx="160" cy="135" r="11" fill="url(#bear1Grad)"/>
+
+            <!-- Right Bear's Arm wrapping around Left Bear -->
+            <path d="M 150 115 C 125 118, 105 138, 85 130" stroke="url(#bear2Grad)" stroke-width="20" stroke-linecap="round" fill="none"/>
+            <circle cx="85" cy="130" r="10" fill="url(#bear2Grad)"/>
+          </svg>
+        </div>
+
+        <!-- Virtual Hug Button -->
+        <button class="btn-primary" id="btn-virtual-hug" style="font-size: 1.15rem; padding: 16px 36px;">
+          <span id="btn-virtual-hug-text">Send you a virtual hug 🫂💋</span>
+        </button>
+
+        <div class="hug-status-message" id="hug-status-message"></div>
+
+        <div class="replay-btn-wrapper">
+          <button class="btn-replay" id="btn-replay">
+            <span>↺</span>
+            <span>Experience this surprise again</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Playful Alert Modal for Runaway Buttons -->
+  <div class="playful-modal-overlay" id="playful-modal">
+    <div class="playful-modal-box">
+      <div class="modal-emoji" id="modal-emoji">🥺</div>
+      <h3 class="modal-title" id="modal-title">Try Again!</h3>
+      <p class="modal-text" id="modal-text">You can't say no to this!</p>
+      <button class="btn-primary" id="modal-confirm-btn">Okay, let's go! ❤️</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -366,6 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function initSlideshow() {
     updateSlideshowUI();
+    preloadAdjacentSlideshow(0);
   }
 
   function changeSlideshowSlide(newIndex) {
@@ -377,6 +378,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slideshowIndex = newIndex;
     updateSlideshowUI();
+    preloadAdjacentSlideshow(slideshowIndex);
+  }
+
+  function preloadAdjacentSlideshow(index) {
+    const photos = config.slideshowPhotos;
+    if (!photos) return;
+    for (let i = index + 1; i <= Math.min(index + 3, photos.length - 1); i++) {
+      if (photos[i] && !photos[i].isVideo && !photos[i].src.endsWith('.mp4')) {
+        const img = new Image();
+        img.src = photos[i].src;
+      }
+    }
   }
 
   function updateSlideshowUI() {
@@ -384,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!photos || !photos[slideshowIndex]) return;
 
     const currentItem = photos[slideshowIndex];
-    const imgEl = document.getElementById('slideshow-image');
+    const frameEl = document.querySelector('.slideshow-photo-frame');
     const eraEl = document.getElementById('slideshow-era-badge');
     const captionEl = document.getElementById('slideshow-caption');
     const counterEl = document.getElementById('slideshow-counter');
@@ -392,16 +405,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('slideshow-next');
     const finishBtn = document.getElementById('btn-slideshow-finish');
 
-    if (imgEl) {
-      imgEl.style.opacity = '0';
-      setTimeout(() => {
-        imgEl.src = currentItem.src;
-        imgEl.onerror = () => {
-          imgEl.onerror = null;
-          imgEl.src = 'assets/images/placeholder-slideshow.svg';
+    if (frameEl) {
+      frameEl.innerHTML = '';
+      const isVideo = currentItem.isVideo || currentItem.src.toLowerCase().endsWith('.mp4');
+
+      if (isVideo) {
+        const video = document.createElement('video');
+        video.src = currentItem.src;
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.controls = true;
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'contain';
+        video.style.background = '#0F172A';
+        frameEl.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = currentItem.src;
+        img.alt = currentItem.caption || 'Memory Photo';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        img.style.background = '#0F172A';
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = 'assets/images/placeholder-slideshow.svg';
         };
-        imgEl.style.opacity = '1';
-      }, 200);
+        frameEl.appendChild(img);
+      }
     }
 
     if (eraEl) eraEl.textContent = currentItem.era;

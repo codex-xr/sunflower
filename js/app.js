@@ -181,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toEl.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
+    resetRunawayButtons();
+
     // Screen specific triggers
     if (targetIndex === 6) {
       startScreen6Timer();
@@ -195,44 +197,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Runaway Button Physics
+   * Keeps skipping endlessly so she can never click it, while strictly staying inside the screen
    */
   function initRunawayButtons() {
     const rNo = document.getElementById('btn-ready-no');
     const rLittle = document.getElementById('btn-love-alittle');
     const runawayButtons = [rNo, rLittle];
 
+    const phrases = [
+      "Can't click me! 😜",
+      "Too slow! 🏃💨",
+      "Still nope! 😂",
+      "Try again! 🙈",
+      "Nope nope! 🏃‍♀️💨",
+      "Just click YES! 🥰❤️"
+    ];
+
     runawayButtons.forEach(btn => {
       if (!btn) return;
       let dodgeCount = 0;
 
       const dodge = (e) => {
-        if (dodgeCount < 5) {
-          const maxOffsetX = Math.min(130, window.innerWidth * 0.3);
-          const maxOffsetY = 70;
-
-          const randomX = (Math.random() > 0.5 ? 1 : -1) * (50 + Math.random() * maxOffsetX);
-          const randomY = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * maxOffsetY);
-
-          btn.style.transition = 'transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)';
-          btn.style.transform = `translate3d(${randomX}px, ${randomY}px, 0) scale(0.92)`;
-
-          dodgeCount++;
-
-          if (dodgeCount === 2) {
-            btn.innerHTML = btn.id.includes('ready') ? "Can't touch me! 😜" : "Still wrong! 🙈";
-          } else if (dodgeCount === 4) {
-            btn.innerHTML = "Just click YES! 😂";
-          }
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
         }
+
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const rect = btn.getBoundingClientRect();
+        const btnW = rect.width || 110;
+        const btnH = rect.height || 46;
+
+        // Strict screen resolution bounds (padding from edges)
+        const pad = 24;
+        const minX = pad;
+        const maxX = Math.max(minX, vw - btnW - pad);
+        const minY = pad + 70; // Avoid top music badge
+        const maxY = Math.max(minY, vh - btnH - pad);
+
+        let targetX, targetY;
+        let attempts = 0;
+        do {
+          targetX = minX + Math.random() * (maxX - minX);
+          targetY = minY + Math.random() * (maxY - minY);
+          attempts++;
+        } while (attempts < 12 && Math.hypot(targetX - rect.left, targetY - rect.top) < 100);
+
+        btn.style.position = 'fixed';
+        btn.style.zIndex = '999';
+        btn.style.left = `${targetX}px`;
+        btn.style.top = `${targetY}px`;
+        btn.style.margin = '0';
+        btn.style.transition = 'left 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.15s ease';
+        btn.style.transform = 'scale(0.96)';
+
+        dodgeCount++;
+        btn.innerHTML = phrases[dodgeCount % phrases.length];
       };
 
+      // Desktop events
       btn.addEventListener('mouseenter', dodge);
-      btn.addEventListener('touchstart', (e) => {
-        if (dodgeCount < 4) {
-          e.preventDefault();
-          dodge(e);
-        }
-      }, { passive: false });
+      btn.addEventListener('pointerenter', dodge);
+
+      // Mobile touch events (triggered before click, preventing click entirely)
+      btn.addEventListener('touchstart', dodge, { passive: false });
+      btn.addEventListener('pointerdown', dodge, { passive: false });
+      btn.addEventListener('click', dodge);
+    });
+  }
+
+  function resetRunawayButtons() {
+    const rNo = document.getElementById('btn-ready-no');
+    const rLittle = document.getElementById('btn-love-alittle');
+    [rNo, rLittle].forEach(b => {
+      if (b) {
+        b.style.position = '';
+        b.style.left = '';
+        b.style.top = '';
+        b.style.zIndex = '';
+        b.style.margin = '';
+        b.style.transform = '';
+      }
     });
   }
 

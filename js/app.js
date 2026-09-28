@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   try { initCarousel(); } catch (err) { console.error("Error initializing carousel:", err); }
   try { initSlideshow(); } catch (err) { console.error("Error initializing slideshow:", err); }
   try { initRunawayButtons(); } catch (err) { console.error("Error initializing runaway buttons:", err); }
+  try { initVoiceNotePlayer(music); } catch (err) { console.error("Error initializing voicenote player:", err); }
 
   // Core Screen Switcher
   function goToScreen(targetIndex) {
@@ -182,6 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     resetRunawayButtons();
+
+    // Pause voicenote if navigating away from Screen 9
+    if (targetIndex !== 9) {
+      const vnAudio = document.getElementById('voicenote-audio');
+      if (vnAudio && !vnAudio.paused) vnAudio.pause();
+    }
 
     // Screen specific triggers
     if (targetIndex === 6) {
@@ -567,5 +574,88 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     confirmBtn.addEventListener('click', handleConfirm);
+  }
+
+  /**
+   * Screen 9 Voice Note Player with Background Audio Ducking
+   */
+  function initVoiceNotePlayer(musicController) {
+    const vnCard = document.getElementById('voicenote-card');
+    const vnAudio = document.getElementById('voicenote-audio');
+    const playBtn = document.getElementById('voicenote-play-btn');
+    const iconPlay = document.getElementById('vn-icon-play');
+    const iconPause = document.getElementById('vn-icon-pause');
+    const timeDisplay = document.getElementById('voicenote-time');
+    const badgeText = document.getElementById('voicenote-badge-text');
+    const titleText = document.getElementById('voicenote-title-text');
+
+    if (!vnAudio || !playBtn) return;
+
+    if (config.voicenote) {
+      if (badgeText && config.voicenote.badge) badgeText.textContent = config.voicenote.badge;
+      if (titleText && config.voicenote.caption) titleText.textContent = `"${config.voicenote.caption}"`;
+    }
+
+    let isVnPlaying = false;
+
+    const formatTime = (secs) => {
+      if (isNaN(secs) || secs < 0) return '0:00';
+      const m = Math.floor(secs / 60);
+      const s = Math.floor(secs % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    };
+
+    vnAudio.addEventListener('loadedmetadata', () => {
+      if (timeDisplay && vnAudio.duration) {
+        timeDisplay.textContent = formatTime(vnAudio.duration);
+      }
+    });
+
+    vnAudio.addEventListener('timeupdate', () => {
+      if (timeDisplay && vnAudio.duration) {
+        const remaining = Math.max(0, vnAudio.duration - vnAudio.currentTime);
+        timeDisplay.textContent = formatTime(remaining || vnAudio.currentTime);
+      }
+    });
+
+    const setPlayingState = (playing) => {
+      isVnPlaying = playing;
+      if (playing) {
+        if (vnCard) vnCard.classList.add('playing');
+        if (iconPlay) iconPlay.style.display = 'none';
+        if (iconPause) iconPause.style.display = 'inline';
+        // Duck background music volume down to 12% so her voice note is crystal clear!
+        if (musicController) musicController.duckVolume(0.12, 400);
+      } else {
+        if (vnCard) vnCard.classList.remove('playing');
+        if (iconPlay) iconPlay.style.display = 'inline';
+        if (iconPause) iconPause.style.display = 'none';
+        // Restore background music back to 100% volume smoothly!
+        if (musicController) musicController.restoreVolume(1.0, 600);
+      }
+    };
+
+    playBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (vnAudio.paused) {
+        vnAudio.play().then(() => {
+          setPlayingState(true);
+        }).catch(err => {
+          console.warn("Voicenote playback deferred:", err);
+        });
+      } else {
+        vnAudio.pause();
+        setPlayingState(false);
+      }
+    });
+
+    vnAudio.addEventListener('pause', () => setPlayingState(false));
+    vnAudio.addEventListener('ended', () => {
+      vnAudio.currentTime = 0;
+      setPlayingState(false);
+      if (timeDisplay && vnAudio.duration) {
+        timeDisplay.textContent = formatTime(vnAudio.duration);
+      }
+    });
   }
 });

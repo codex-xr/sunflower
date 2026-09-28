@@ -120,6 +120,46 @@ class MusicController {
     }
   }
 
+  /**
+   * Smoothly ducks background music volume (e.g., when voice note plays)
+   */
+  duckVolume(target = 0.12, duration = 400) {
+    if (!this.audio) return;
+    if (this._fadeInterval) clearInterval(this._fadeInterval);
+    const startVol = this.audio.volume;
+    const startTime = performance.now();
+
+    this._fadeInterval = setInterval(() => {
+      const elapsed = performance.now() - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      this.audio.volume = Math.max(0, startVol + (target - startVol) * progress);
+      if (progress >= 1) {
+        clearInterval(this._fadeInterval);
+        this._fadeInterval = null;
+      }
+    }, 25);
+  }
+
+  /**
+   * Smoothly restores background music volume back to normal
+   */
+  restoreVolume(target = 1.0, duration = 600) {
+    if (!this.audio) return;
+    if (this._fadeInterval) clearInterval(this._fadeInterval);
+    const startVol = this.audio.volume;
+    const startTime = performance.now();
+
+    this._fadeInterval = setInterval(() => {
+      const elapsed = performance.now() - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      this.audio.volume = Math.min(1, startVol + (target - startVol) * progress);
+      if (progress >= 1) {
+        clearInterval(this._fadeInterval);
+        this._fadeInterval = null;
+      }
+    }, 25);
+  }
+
   updateUI(isPlaying) {
     if (this.vinylEl) {
       if (isPlaying) {

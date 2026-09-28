@@ -314,6 +314,12 @@ window.SUNFLOWER_CONFIG = {
       "caption": "Happy Birthday my love, my peace, my Sunflower forever 🌻❤️"
     }
   ],
+  "voicenote": {
+    "src": "assets/audio/voicenote/voicenote.ogg",
+    "fallbackSrc": "assets/audio/voicenote/You probably won't remmeber this (Laughing emoji).ogg",
+    "caption": "You probably won't remember this 😂",
+    "badge": "Secret Voice Memo 🎙️🎧"
+  },
   "finale": {
     "heading": "I love you, Salome",
     "subheading": "And I wish you God's richest blessings today and always ✨",

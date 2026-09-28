@@ -342,6 +342,53 @@
           </svg>
         </div>
 
+        <!-- Special Voice Note from Her -->
+        <div class="voicenote-card" id="voicenote-card">
+          <div class="voicenote-badge">
+            <span class="voicenote-pulse-dot"></span>
+            <span id="voicenote-badge-text">Secret Voice Memo 🎙️🎧</span>
+          </div>
+          <p class="voicenote-title" id="voicenote-title-text">"You probably won't remember this 😂"</p>
+          
+          <div class="voicenote-player">
+            <button class="voicenote-play-btn" id="voicenote-play-btn" aria-label="Play Voice Note">
+              <svg id="vn-icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <svg id="vn-icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            </button>
+
+            <!-- Animated Waveform Visualizer -->
+            <div class="voicenote-wave-container" id="voicenote-waves">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </div>
+
+            <span class="voicenote-time" id="voicenote-time">0:00</span>
+          </div>
+
+          <audio id="voicenote-audio" preload="metadata">
+            <source src="assets/audio/voicenote/voicenote.ogg" type="audio/ogg">
+            <source src="assets/audio/voicenote/You probably won't remmeber this (Laughing emoji).ogg" type="audio/ogg">
+          </audio>
+        </div>
+
         <!-- Virtual Hug Button -->
         <button class="btn-primary" id="btn-virtual-hug" style="font-size: 1.15rem; padding: 16px 36px;">
           <span id="btn-virtual-hug-text">Send you a virtual hug 🫂💋</span>

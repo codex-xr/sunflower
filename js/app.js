@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Runaway Button Physics
-   * Keeps skipping endlessly so she can never click it, strictly staying inside the question card box
+   * Moves a few inches above and below so she can never click it, staying strictly within the card
    */
   function initRunawayButtons() {
     const rNo = document.getElementById('btn-ready-no');
@@ -232,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     runawayButtons.forEach(btn => {
       if (!btn) return;
       let dodgeCount = 0;
+      let isUp = false;
 
       const dodge = (e) => {
         if (e) {
@@ -239,101 +240,26 @@ document.addEventListener('DOMContentLoaded', () => {
           e.stopPropagation();
         }
 
-        const card = btn.closest('.question-card');
-        if (!card) return;
-
-        const cardRect = card.getBoundingClientRect();
-
         dodgeCount++;
         const phrases = btn.id === 'btn-love-alittle' ? phrasesLittle : phrasesNo;
         btn.innerHTML = phrases[dodgeCount % phrases.length];
 
-        const btnW = btn.offsetWidth || 110;
-        const btnH = btn.offsetHeight || 44;
+        // Alternate moving a few inches above and below
+        // Up: ~60px to 75px above | Down: ~45px to 60px below
+        let targetY;
+        const targetX = Math.round((Math.random() - 0.5) * 30); // Gentle horizontal variation
 
-        // Strict bounds inside the white card
-        const padX = 18;
-        const padY = 18;
-        const minX = padX;
-        const maxX = Math.max(minX, card.clientWidth - btnW - padX);
-        const minY = padY;
-        const maxY = Math.max(minY, card.clientHeight - btnH - padY);
-
-        // Find primary button (YES / A lot) relative to card to prevent overlap
-        const primaryBtn = card.querySelector('.btn-primary');
-        let pLeft = -999, pTop = -999, pRight = -999, pBottom = -999;
-        if (primaryBtn) {
-          const pRect = primaryBtn.getBoundingClientRect();
-          pLeft = pRect.left - cardRect.left;
-          pTop = pRect.top - cardRect.top;
-          pRight = pLeft + pRect.width;
-          pBottom = pTop + pRect.height;
-        }
-
-        // Current position relative to card
-        let currentX, currentY;
-        if (btn.classList.contains('is-dodging')) {
-          currentX = parseFloat(btn.style.left) || 0;
-          currentY = parseFloat(btn.style.top) || 0;
+        if (!isUp) {
+          targetY = -Math.round(58 + Math.random() * 18); // Few inches above
+          isUp = true;
         } else {
-          const rect = btn.getBoundingClientRect();
-          currentX = rect.left - cardRect.left;
-          currentY = rect.top - cardRect.top;
-
-          // Seamless transition from flex row to absolute coordinates
-          btn.style.transition = 'none';
-          btn.classList.add('is-dodging');
-          btn.style.left = `${currentX}px`;
-          btn.style.top = `${currentY}px`;
-          void btn.offsetHeight; // trigger reflow
+          targetY = Math.round(44 + Math.random() * 18);  // Few inches below
+          isUp = false;
         }
 
-        // Pick new random target strictly within the card, avoiding primary button
-        const buffer = 14;
-        let targetX = minX;
-        let targetY = minY;
-        let attempts = 0;
-        let bestTarget = null;
-        let maxDist = -1;
-
-        while (attempts < 30) {
-          const testX = minX + Math.random() * (maxX - minX);
-          const testY = minY + Math.random() * (maxY - minY);
-          const testRight = testX + btnW;
-          const testBottom = testY + btnH;
-
-          const overlapsPrimary = primaryBtn && (
-            testRight + buffer >= pLeft &&
-            testX - buffer <= pRight &&
-            testBottom + buffer >= pTop &&
-            testY - buffer <= pBottom
-          );
-
-          const dist = Math.hypot(testX - currentX, testY - currentY);
-
-          if (!overlapsPrimary) {
-            if (dist > maxDist) {
-              maxDist = dist;
-              bestTarget = { x: testX, y: testY };
-            }
-            if (dist >= 75) {
-              targetX = testX;
-              targetY = testY;
-              break;
-            }
-          }
-          attempts++;
-        }
-
-        if (attempts >= 30 && bestTarget) {
-          targetX = bestTarget.x;
-          targetY = bestTarget.y;
-        }
-
-        btn.style.transition = 'left 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.15s ease';
-        btn.style.left = `${Math.round(targetX)}px`;
-        btn.style.top = `${Math.round(targetY)}px`;
-        btn.style.transform = 'scale(0.96)';
+        btn.style.transition = 'transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        btn.style.transform = `translate(${targetX}px, ${targetY}px)`;
+        btn.style.zIndex = '20';
       };
 
       // Desktop events
@@ -352,14 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const rLittle = document.getElementById('btn-love-alittle');
     [rNo, rLittle].forEach(b => {
       if (b) {
-        b.classList.remove('is-dodging');
-        b.style.position = '';
-        b.style.left = '';
-        b.style.top = '';
-        b.style.zIndex = '';
-        b.style.margin = '';
         b.style.transform = '';
         b.style.transition = '';
+        b.style.zIndex = '';
         if (b.id === 'btn-ready-no') {
           b.innerHTML = '<span>NO</span> <span>😭</span>';
         } else if (b.id === 'btn-love-alittle') {

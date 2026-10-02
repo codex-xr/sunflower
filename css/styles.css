@@ -344,14 +344,13 @@ body {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  padding: 46px 32px;
+  padding: 44px 32px;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-warm);
   width: 100%;
   max-width: 520px;
-  min-height: 420px;
+  min-height: 400px;
   position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -360,17 +359,22 @@ body {
 }
 
 .question-card .btn-row {
-  position: static;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
   margin-top: 28px;
+  min-height: 60px;
+  width: 100%;
 }
 
-.btn-secondary.is-dodging {
-  position: absolute !important;
-  z-index: 50;
-  margin: 0 !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  white-space: nowrap;
+.question-card .btn-secondary {
+  position: relative;
+  z-index: 10;
   touch-action: none;
+  white-space: nowrap;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .card-icon {

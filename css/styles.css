@@ -344,11 +344,33 @@ body {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  padding: 44px 32px;
+  padding: 46px 32px;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-warm);
   width: 100%;
   max-width: 520px;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.question-card .btn-row {
+  position: static;
+  margin-top: 28px;
+}
+
+.btn-secondary.is-dodging {
+  position: absolute !important;
+  z-index: 50;
+  margin: 0 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  touch-action: none;
 }
 
 .card-icon {
@@ -1108,6 +1130,10 @@ body {
 
   .question-card, .suspense-card, .promise-reveal-box, .finale-card {
     padding: 32px 20px;
+  }
+
+  .question-card {
+    min-height: 380px;
   }
 
   #music-widget {

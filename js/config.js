@@ -6,9 +6,9 @@ window.SUNFLOWER_CONFIG = {
   "nickname": "Sunflower",
   "herName": "Salome",
   "music": {
-    "title": "Dancing in the Smoke",
-    "artist": "Giveon",
-    "src": "assets/audio/music.mp3",
+    "title": "Impulsive",
+    "artist": "Thekidszn",
+    "src": "assets/audio/IMPULSIVE.mp3",
     "autoplayOnStart": true
   },
   "chatImage": "assets/images/chat.jpg",

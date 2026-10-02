@@ -1,14 +1,14 @@
 /**
  * Sunflower Romantic Music Controller
- * Manages Giveon - Dancing in the Smoke playback, floating vinyl widget, and fallback synth.
+ * Manages Thekidszn - Impulsive playback, floating vinyl widget, and fallback synth.
  */
 
 class MusicController {
   constructor() {
     this.config = window.SUNFLOWER_CONFIG ? window.SUNFLOWER_CONFIG.music : {
-      title: "Dancing in the Smoke",
-      artist: "Giveon",
-      src: "assets/audio/music.mp3"
+      title: "Impulsive",
+      artist: "Thekidszn",
+      src: "assets/audio/IMPULSIVE.mp3"
     };
 
     this.isPlaying = false;
@@ -31,8 +31,8 @@ class MusicController {
     // Check multiple common file names for convenience
     const candidateSources = [
       this.config.src,
-      'assets/audio/dancing-in-the-smoke.mp3',
-      'assets/audio/giveon.mp3',
+      'assets/audio/IMPULSIVE.mp3',
+      'assets/audio/impulsive.mp3',
       'assets/audio/music.mp3'
     ];
 
